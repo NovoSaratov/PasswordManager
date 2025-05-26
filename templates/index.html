@@ -3,21 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <title>Password Manager</title>
+    <style>
+        body {
+            background: #f5f7fa;
+            font-family: system-ui, sans-serif;
+            margin: 0;
+        }
+        .container {
+            max-width: 370px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 16px #0001;
+            padding: 28px 22px 22px 22px;
+        }
+        h2 {
+            text-align: center;
+            color: #2563eb;
+            margin-bottom: 22px;
+            font-size: 1.5em;
+            letter-spacing: 1px;
+        }
+        form input, form button {
+            width: 100%;
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 7px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        form button {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 18px;
+            transition: background 0.2s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        form button:hover {
+            background: #1746a0;
+        }
+        .entry {
+            background: #f3f6fa;
+            border-radius: 8px;
+            padding: 13px 13px 10px 13px;
+            margin-bottom: 15px;
+            border: 1px solid #e3e7ee;
+        }
+        .entry-label {
+            color: #2563eb;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .entry-row {
+            margin-bottom: 7px;
+            font-size: 1.04em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .password-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+        }
+        .password-input {
+            border: none;
+            background: none;
+            font-size: 1em;
+            color: #222;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        .copy-btn {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 14px;
+            font-size: 0.98em;
+            cursor: pointer;
+            margin-left: 0;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover {
+            background: #1746a0;
+        }
+    </style>
+    <script>
+        function copyInput(id) {
+            const input = document.getElementById(id);
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            document.execCommand("copy");
+        }
+    </script>
 </head>
 <body>
-    <h2>Password Manager</h2>
-    <form method="POST">
-        <input type="text" name="website" placeholder="Website" required>
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Save</button>
-    </form>
-    {% for entry in entries %}
-    <div>
-        <div>Website: {{ entry.website }}</div>
-        <div>Username: {{ entry.username }}</div>
-        <div>Password: {{ entry.password }}</div>
+    <div class="container">
+        <h2>Password Manager</h2>
+        <form method="POST">
+            <input type="text" name="website" placeholder="Website" required>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Save</button>
+        </form>
+        {% for entry in entries %}
+        <div class="entry">
+            <div class="entry-row"><span class="entry-label">Website:</span>{{ entry.website }}</div>
+            <div class="entry-row"><span class="entry-label">Username:</span>{{ entry.username }}</div>
+            <div class="entry-row password-row">
+                <span class="entry-label">Password:</span>
+                <input id="pw{{ loop.index }}" class="password-input" type="text" value="{{ entry.password }}" readonly>
+                <button class="copy-btn" type="button" onclick="copyInput('pw{{ loop.index }}')">Copy</button>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </body>
 </html> 
