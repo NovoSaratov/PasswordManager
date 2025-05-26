@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Manager</title>
+</head>
+<body>
+    <h2>Password Manager</h2>
+    <form method="POST">
+        <input type="text" name="website" placeholder="Website" required>
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Save</button>
+    </form>
+    {% for entry in entries %}
+    <div>
+        <div>Website: {{ entry.website }}</div>
+        <div>Username: {{ entry.username }}</div>
+        <div>Password: {{ entry.password }}</div>
+    </div>
+    {% endfor %}
+</body>
+</html> 
