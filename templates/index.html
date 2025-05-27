@@ -2,45 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Password Manager</title>
     <style>
+        :root {
+            --main-blue: #2563eb;
+            --main-bg: #f5f7fa;
+            --entry-bg: #f3f6fa;
+            --entry-border: #e3e7ee;
+            --container-max: 370px;
+        }
         body {
-            background: #f5f7fa;
+            background: var(--main-bg);
             font-family: system-ui, sans-serif;
             margin: 0;
         }
         .container {
-            max-width: 370px;
-            margin: 40px auto;
+            width: 100%;
+            max-width: var(--container-max);
+            margin: 2.5rem auto;
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 2px 16px #0001;
-            padding: 28px 22px 22px 22px;
+            padding: 2rem 1.2rem 1.2rem 1.2rem;
         }
         h2 {
             text-align: center;
-            color: #2563eb;
-            margin-bottom: 22px;
-            font-size: 1.5em;
+            color: var(--main-blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.7rem;
             letter-spacing: 1px;
         }
         form input, form button {
             width: 100%;
-            margin-bottom: 12px;
-            padding: 12px;
+            margin-bottom: 0.8rem;
+            padding: 0.9rem;
             border-radius: 7px;
             border: 1px solid #ddd;
-            font-size: 1em;
+            font-size: 1rem;
             box-sizing: border-box;
             text-align: center;
         }
         form button {
-            background: #2563eb;
+            background: var(--main-blue);
             color: #fff;
             border: none;
             font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 18px;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
             transition: background 0.2s;
             display: block;
             margin-left: auto;
@@ -50,19 +59,19 @@
             background: #1746a0;
         }
         .entry {
-            background: #f3f6fa;
+            background: var(--entry-bg);
             border-radius: 8px;
-            padding: 13px 13px 10px 13px;
-            margin-bottom: 15px;
-            border: 1px solid #e3e7ee;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--entry-border);
         }
         .entry-label {
-            color: #2563eb;
+            color: var(--main-blue);
             font-weight: 600;
             margin-right: 4px;
         }
         .entry-row {
-            margin-bottom: 7px;
+            margin-bottom: 0.5rem;
             font-size: 1.04em;
             display: flex;
             flex-direction: column;
@@ -73,7 +82,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 0.5rem;
             text-align: center;
         }
         .password-input {
@@ -87,12 +96,12 @@
             text-align: center;
         }
         .copy-btn {
-            background: #2563eb;
+            background: var(--main-blue);
             color: #fff;
             border: none;
             border-radius: 5px;
-            padding: 6px 14px;
-            font-size: 0.98em;
+            padding: 0.5rem 1.2rem;
+            font-size: 1em;
             cursor: pointer;
             margin-left: 0;
             transition: background 0.2s;
@@ -101,29 +110,30 @@
             background: #1746a0;
         }
         /* Responsive Design */
-        @media (max-width: 500px) {
+        @media (max-width: 600px) {
             .container {
                 max-width: 98vw;
-                padding: 14px 4vw 14px 4vw;
+                margin: 1.2rem auto;
+                padding: 1.2rem 0.5rem 1rem 0.5rem;
             }
             h2 {
-                font-size: 1.15em;
-                margin-bottom: 14px;
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
             }
             form input, form button {
-                font-size: 0.98em;
-                padding: 10px;
+                font-size: 1rem;
+                padding: 0.7rem;
             }
             .entry {
-                padding: 8px 6px 7px 6px;
+                padding: 0.7rem 0.5rem 0.7rem 0.5rem;
                 font-size: 0.97em;
             }
             .entry-row {
-                font-size: 0.98em;
+                font-size: 1em;
             }
             .copy-btn {
-                font-size: 0.95em;
-                padding: 5px 10px;
+                font-size: 0.98em;
+                padding: 0.4rem 0.8rem;
             }
         }
     </style>
