@@ -100,6 +100,32 @@
         .copy-btn:hover {
             background: #1746a0;
         }
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .container {
+                max-width: 98vw;
+                padding: 14px 4vw 14px 4vw;
+            }
+            h2 {
+                font-size: 1.15em;
+                margin-bottom: 14px;
+            }
+            form input, form button {
+                font-size: 0.98em;
+                padding: 10px;
+            }
+            .entry {
+                padding: 8px 6px 7px 6px;
+                font-size: 0.97em;
+            }
+            .entry-row {
+                font-size: 0.98em;
+            }
+            .copy-btn {
+                font-size: 0.95em;
+                padding: 5px 10px;
+            }
+        }
     </style>
     <script>
         function copyInput(id) {
