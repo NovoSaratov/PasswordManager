@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
 from cryptography.fernet import Fernet
 import base64
 import os
+from functools import wraps
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 # Generate or load a key
 key_file = 'secret.key'
@@ -22,7 +24,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# Create table if it doesn't exist
+
 with get_db_connection() as conn:
     conn.execute('''
         CREATE TABLE IF NOT EXISTS entries (
@@ -34,7 +36,45 @@ with get_db_connection() as conn:
     ''')
     conn.commit()
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'logged_in' not in session:
+            return redirect(url_for('admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == 'admin' and password == 'admin123':
+            session['logged_in'] = True
+            return redirect(url_for('index'))
+        return render_template('login.html', error=True)
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('admin_login'))
+
+@app.route('/generator')
+@login_required
+def generator():
+    return render_template('generator.html')
+
+@app.route('/generate-password')
+@login_required
+def generate_password():
+    chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+'
+    random_bytes = os.urandom(16)
+    password = ''.join(chars[b % len(chars)] for b in random_bytes)
+    return {'password': password}
+
 @app.route('/', methods=['GET', 'POST'])
+@login_required
 def index():
     if request.method == 'POST':
         website = request.form['website']
